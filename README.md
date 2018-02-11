@@ -1,5 +1,28 @@
-rfdmovies
-=========
+rfdmovies-client
+================
+
+version
+---
+
+```
+                                        ____                                              
+            .--.,        ,---,         ,'  , `.                         ,--,               
+  __  ,-. ,--.'  \     ,---.'|      ,-+-,.' _ |    ,---.              ,--.'|               
+,' ,'/ /| |  | /\/     |   | :   ,-+-. ;   , ||   '   ,'\       .---. |  |,                
+'  | |' | :  : :       |   | |  ,--.'|'   |  ||  /   /   |    /.  ./| `--'_        ,---.   
+|  |   ,' :  | |-,   ,--.__| | |   |  ,', |  |, .   ; ,. :  .-' . ' | ,' ,'|      /     \  
+'  :  /   |  : :/|  /   ,'   | |   | /  | |--'  '   | |: : /___/ \: | '  | |     /    /  | 
+|  | '    |  |  .' .   '  /  | |   : |  | ,     '   | .; : .   \  ' . |  | :    .    ' / | 
+;  : |    '  : '   '   ; |:  | |   : |  |/      |   :    |  \   \   ' '  : |__  '   ;   /| 
+|  , ;    |  | |   |   | '/  ' |   | |`-'        \   \  /    \   \    |  | '.'| '   |  / | 
+ ---'     |  : \   |   :    :| |   ;/             `----'      \   \ | ;  :    ; |   :    | 
+          |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
+          `--'       `----'                                            ---`-'     `----' 
+            
+Recommend && Find && Download Movie Cli
+
+version 0.1
+```
 
 instant recommending or finding or downloading movies via the command line
 --------------------------------------------------------------------------
@@ -18,11 +41,11 @@ Using this application, you will get the movie and information you are truly int
 Installation
 ------------
 
-`pip install rfdmovies`
+`pip install rfdmovies-client`
 
 or
 
-`pip install git+https://github.com/Microndgt/rfdmovies.git`
+`pip install git+https://github.com/Microndgt/rfdmovies-client.git`
 
 or
 
@@ -63,3 +86,8 @@ Note
 ----
 
 - Works with Python3
+
+Using
+---
+
+- [xart](https://github.com/xlzd/xart) - generating art ASCII texts
