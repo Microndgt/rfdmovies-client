@@ -27,7 +27,8 @@ version_info = """
 Recommend && Find && Download Movie Cli
 version 0.1.1
 """
-HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
+FIND_HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
+DOWNLOAD_HEADERS = ("name", "download_urls")
 
 
 def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=True):
@@ -47,12 +48,19 @@ def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=
         print("Unsupported action: {}".format(action))
 
 
-def show(movies, color=True):
+def show(movies, headers, color=True, action="find"):
     if not color:
         pprint(movies)
     else:
-        movie_list = [[colored("red", str(movie[header])) for header in HEADERS] for movie in movies]
-        pretty_print(movie_list)
+        if action == "find":
+            movie_list = [[colored("red", str(movie[header])) for header in headers] for movie in movies]
+        elif action == "download":
+            movie_list = [[colored("red", str(movie[header])) for header in headers] for movie in movies]
+        elif action == "recommend":
+            movie_list = []
+        else:
+            return
+        pretty_print(movie_list, headers)
 
 
 def colored(color, text):
@@ -68,9 +76,9 @@ def colored(color, text):
     return ''.join([cv, text, nc])
 
 
-def pretty_print(movies):
+def pretty_print(movies, headers):
     pt = PrettyTable()
-    pt._set_field_names(HEADERS)
+    pt._set_field_names(headers)
     for movie in movies:
         pt.add_row(movie)
     print(pt)
@@ -98,10 +106,11 @@ def main():
     if args.find:
         logger.info("find MovieName: " + args.movie)
         movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="find", cache=args.cache)
-        show(movies, color=args.color)
+        show(movies, FIND_HEADERS, color=args.color, action="find")
     elif args.download:
         logger.info("download MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, action="download", cache=args.cache)
+        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="download", cache=args.cache)
+        show(movies, DOWNLOAD_HEADERS, color=args.color, action="download")
     elif args.recommend:
         logger.info("recommend MovieName: " + args.movie)
         rfd_movie(args.movie, args.num, args.pos, args.output, action="recommend", cache=args.cache)

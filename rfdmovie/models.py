@@ -63,3 +63,18 @@ class Movie(BaseModel):
 
 class Download(BaseModel):
     __tablename__ = 'download'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    download_urls = Column(ARRAY(String), default=[])
+    created_utc = Column(Integer, default=generate_timestamp)
+    updated_utc = Column(Integer, default=generate_timestamp, onupdate=generate_timestamp)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "download_urls": self.download_urls,
+            "created_utc": self.created_utc,
+            "updated_utc": self.updated_utc
+        }

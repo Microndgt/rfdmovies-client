@@ -18,7 +18,7 @@ rfdmovies-client
             
 Recommend && Find && Download Movie Cli
 
-version 0.1
+version 0.1.1
 ```
 
 instant recommending or finding or downloading movies via the command line
@@ -60,7 +60,7 @@ bin/db_upgrade.sh
 
 接下来运行下面两个命令其中一个即可将目前所有的电影数据导入数据库:
 
-1. `psql -d rfdmovie -U postgres -p 35332 -f rfdmovie.sql`
+1. `psql -d rfdmovie -U postgres -p 35332 -f data/rfdmovie.sql`
 2. `python -m bin.read_raw_movie_data`
 
 目前共有47862条电影数据
@@ -123,3 +123,9 @@ Using
 
 - [xart](https://github.com/xlzd/xart) - generating art ASCII texts
 - [prettytable](https://github.com/vishvananda/prettytable) - generate pretty table
+
+History
+===
+
+- 0.1.1: 支持 download 查询 cache 数据库操作
+- 0.1.0: 导入原始数据，支持 find 查询 cache 数据库操作
