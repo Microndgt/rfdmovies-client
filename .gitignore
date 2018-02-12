@@ -5,6 +5,7 @@ __pycache__/
 
 .idea
 .DS_Store
+*/tmp
 
 # C extensions
 *.so
