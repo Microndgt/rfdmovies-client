@@ -59,3 +59,7 @@ class Movie(BaseModel):
             "created_utc": self.created_utc,
             "updated_utc": self.updated_utc
         }
+
+
+class Download(BaseModel):
+    __tablename__ = 'download'

@@ -3,6 +3,10 @@ from pprint import pprint
 from prettytable import PrettyTable
 
 from .cache.movie import MovieCache
+from .cache.download import DownloadCache
+from .apis.douban import DoubanAPI
+from .apis.movie_heaven import MovieHeavenAPI
+from .recommend import recommend
 from .logger import logger
 
 desc = "Recommend && Find && Download Movie cli"
@@ -21,7 +25,7 @@ version_info = """
           |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
           `--'       `----'                                            ---`-'     `----'   
 Recommend && Find && Download Movie Cli
-version 0.1
+version 0.1.1
 """
 HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
 
@@ -30,6 +34,17 @@ def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=
     if action == "find":
         if cache:
             return MovieCache.read(movie_name, num=page_size)
+        else:
+            return DoubanAPI.read(movie_name, num=page_size)
+    elif action == "download":
+        if cache:
+            return DownloadCache.read(movie_name, num=page_size)
+        else:
+            return MovieHeavenAPI.read(movie_name, num=page_size)
+    elif action == "recommend":
+        return recommend(movie_name)
+    else:
+        print("Unsupported action: {}".format(action))
 
 
 def show(movies, color=True):

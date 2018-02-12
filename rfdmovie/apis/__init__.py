@@ -12,4 +12,21 @@ headers = {'User-Agent': random.choice(USER_AGENTS)}
 
 
 class BaseAPI:
-    pass
+    @classmethod
+    def read(cls, key_word, num=5):
+        """
+
+        :param key_word:
+        :param num:
+        :return: list(dict)
+        """
+        raise NotImplementedError
+
+    @classmethod
+    def read_all(cls, key_word):
+        """
+
+        :param key_word:
+        :return: list(dict)
+        """
+        raise NotImplementedError

@@ -1,5 +1,5 @@
 logging:
-  level: "debug"
+  level: "INFO"
 
 rfdmovie:
   postgresql:
@@ -10,4 +10,4 @@ rfdmovie:
     db_name: "rfdmovie"
     check_interval: 60
   sqlalchemy:
-    echo: True
+    echo: False

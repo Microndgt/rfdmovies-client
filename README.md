@@ -93,7 +93,7 @@ optional arguments:
 
 - 读取电影信息
 
-    - `python -m rfdmovie -f -m "宝贝" -C`
+    - `python -m rfdmovie -f -m "宝贝" -C` 使用cache数据
     - `python -m rfdmovie -f -m "宝贝" -C -c` 加上颜色输出
     
     ```
@@ -122,3 +122,4 @@ Using
 ---
 
 - [xart](https://github.com/xlzd/xart) - generating art ASCII texts
+- [prettytable](https://github.com/vishvananda/prettytable) - generate pretty table
