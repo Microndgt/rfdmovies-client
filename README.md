@@ -18,7 +18,7 @@ rfdmovies-client
             
 Recommend && Find && Download Movie Cli
 
-version 0.1.3
+version 0.1.4
 ```
 
 instant recommending or finding or downloading movies via the command line
@@ -36,17 +36,13 @@ Using this application, you will get the movie and information you are truly int
 `rfdmovies` will give you a movie downloading link like this, `rfdmovies -d 冰与火之歌`
 
 Installation
-------------
+===
 
-`pip install rfdmovies-client`
+requirements
+---
 
-or
-
-`pip install git+https://github.com/Microndgt/rfdmovies-client.git`
-
-or
-
-`python setup.py install`
+- `pip install -r requirements.txt`
+- `postgresql`
 
 load data
 ---
@@ -93,8 +89,9 @@ optional arguments:
 
 - 读取电影信息
 
-    - `python -m rfdmovie -f -m "宝贝" -C` 使用cache数据
+    - `python -m rfdmovie -f -m "宝贝" -C` 使用 cache 数据库数据
     - `python -m rfdmovie -f -m "宝贝" -C -c` 加上颜色输出
+    - `python -m rfdmovie -f -m "宝贝" -c` 搜索豆瓣数据并且更新 cache 数据库
     
     ```
     +-----------------------------------------------+------+----------+------------------+---------------------------------------------+----------------------------------+--------------------------------------------+
@@ -115,7 +112,7 @@ optional arguments:
 
 - 推荐
 
-    - `python -m rfdmovie -r -m "黑客帝国" -C -c`
+    - `python -m rfdmovie -r -m "黑客帝国" -c`
 
 Author
 ------
@@ -133,10 +130,20 @@ Using
 - [xart](https://github.com/xlzd/xart) - generating art ASCII texts
 - [prettytable](https://github.com/vishvananda/prettytable) - generate pretty table
 
+Contribute
+===
+
+1. 更新电影数据库，与豆瓣同步。
+
+    `pg_dump -U postgres -p 35332 -f data/rfdmovie.sql rfdmovie`
+
+2. 添加新功能，优化算法。
+
 History
 ===
 
+- 0.1.4: 支持 豆瓣 搜索并且更新数据库了 `python -m rfdmovie -f -m "宝贝" -c`
 - 0.1.3: 支持 电影天堂 搜索电影下载链接啦 `python -m rfdmovie -d -m "冰与火之歌" -c`
-- 0.1.2: 支持 recommend，可以推荐电影啦 `python -m rfdmovie -r -m "黑客帝国" -C -c`
+- 0.1.2: 支持 recommend，可以推荐电影啦 `python -m rfdmovie -r -m "黑客帝国" -c`
 - 0.1.1: 支持 download 查询 cache 数据库操作 `python -m rfdmovie -d -m "宝贝" -C -c`
 - 0.1.0: 导入原始数据，支持 find 查询 cache 数据库操作  `python -m rfdmovie -f -m "宝贝" -C -c`

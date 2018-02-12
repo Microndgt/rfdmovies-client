@@ -29,13 +29,13 @@ def parse_line(line):
         "name": elements[1],
         "image_url": elements[3],
         "director": elements[4].strip(),
-        "actors": [element.strip() for element in elements[6].split("/")],
-        "types": [element.strip() for element in elements[7].split("/")],
-        "countries": [element.strip() for element in elements[8].split("/")],
-        "languages": [element.strip() for element in elements[9].split("/")],
-        "keywords": [element.strip() for element in elements[14].split("/")],
-        "rate": float(elements[18]) if elements[18] else 0,
-        "rate_num": int(elements[19]) if elements[19] else 0,
+        "actors": [element.strip() for element in elements[6].split("/") if element],
+        "types": [element.strip() for element in elements[7].split("/") if element],
+        "countries": [element.strip() for element in elements[8].split("/") if element],
+        "languages": [element.strip() for element in elements[9].split("/") if element],
+        "keywords": [element.strip() for element in elements[14].split("/") if element],
+        "rate": float(elements[18]) if elements[18] else 5.0,
+        "rate_num": int(elements[19]) if elements[19] else 500,
     }
 
     if elements[2] and elements[2] not in {"？", "?"}:
@@ -46,7 +46,7 @@ def parse_line(line):
             print(elements[2])
             res["release_time"] = "1900-01-01"
         else:
-            release_time = datetime.strptime(release_year, "%Y").strftime("%Y-%m-%d"),
+            release_time = datetime.strptime(release_year, "%Y").strftime("%Y-%m-%d")
             res["release_time"] = release_time
     else:
         res["release_time"] = "1900-01-01"
@@ -60,19 +60,19 @@ def parse_line(line):
 
     grades = elements[20].strip("\n").split(",")
     if grades[0]:
-        res["grade_five"] = float(re.search(r"([\d|\.]+)", grades[0]).group(1)) / 100
-        res["grade_four"] = float(re.search(r"([\d|\.]+)", grades[1]).group(1)) / 100
-        res["grade_three"] = float(re.search(r"([\d|\.]+)", grades[2]).group(1)) / 100
-        res["grade_two"] = float(re.search(r"([\d|\.]+)", grades[3]).group(1)) / 100
-        res["grade_one"] = float(re.search(r"([\d|\.]+)", grades[4]).group(1)) / 100
+        res["grade_five"] = round(float(re.search(r"([\d|\.]+)", grades[0]).group(1)) / 100, 4)
+        res["grade_four"] = round(float(re.search(r"([\d|\.]+)", grades[1]).group(1)) / 100, 4)
+        res["grade_three"] = round(float(re.search(r"([\d|\.]+)", grades[2]).group(1)) / 100, 4)
+        res["grade_two"] = round(float(re.search(r"([\d|\.]+)", grades[3]).group(1)) / 100, 4)
+        res["grade_one"] = round(float(re.search(r"([\d|\.]+)", grades[4]).group(1)) / 100, 4)
     else:
-        res["grade_five"] = res["grade_four"] = res["grade_three"] = res["grade_two"] = res["grade_one"] = 0
+        res["grade_five"] = res["grade_four"] = res["grade_three"] = res["grade_two"] = res["grade_one"] = 0.25
     return res
 
 
 def main():
     movies = read_file(MOVIE_DATA_FILE)
-    MovieCache().write_all(movies)
+    MovieCache().write_all(movies, update=False)
 
 
 if __name__ == '__main__':

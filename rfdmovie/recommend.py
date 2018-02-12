@@ -1,5 +1,6 @@
 import numpy as np
 
+from rfdmovie.models import Movie
 from .logger import logger
 from .cache.movie import MovieCache
 
@@ -73,7 +74,7 @@ def recommend(name):
         return []
     # TODO 给出电影列表，让用户选择电影
     logger.info("您选择的电影是: {}".format(base_movie[0]['name']))
-    remain_movies = MovieCache.read_by_filter(exclude=base_movie[0]['id'])
+    remain_movies = MovieCache.read_by_filter(cond=(Movie.id != base_movie[0]['id']))
     movie_data = movies_as_matrix(base_movie)
     movies_data = movies_as_matrix(remain_movies)
     rate_sum_data = [movie['rate_num'] for movie in base_movie + remain_movies]

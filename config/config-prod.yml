@@ -15,3 +15,6 @@ rfdmovie:
 movie_heaven:
   base: "http://s.dydytt.net/"
   search: "http://s.dydytt.net/plus/search.php?kwtype=0&keyword="
+
+douban:
+  search: "https://movie.douban.com/subject_search?cat=1002&search_text="

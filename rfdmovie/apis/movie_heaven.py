@@ -1,5 +1,3 @@
-import random
-import requests
 from bs4 import BeautifulSoup as bs
 
 from rfdmovie.cache.download import DownloadCache
@@ -33,12 +31,7 @@ class MovieHeavenAPI(BaseAPI):
 
 
 class MovieHeavenDownloader(HtmlDownloader):
-    def get(self, search_url):
-        headers = {'User-Agent': random.choice(USER_AGENTS)}
-        req = requests.get(search_url, headers=headers)
-        if req.status_code // 200 != 1:
-            return
-        return req.content.decode("gbk", 'ignore')
+    pass
 
 
 class MovieHeavenParser(HtmlParser):
@@ -90,26 +83,27 @@ class MovieHeavenSearch(Search):
         self.search_url = get_config("movie_heaven.search")
         self.downloader = MovieHeavenDownloader()
         self.parser = MovieHeavenParser()
+        self.decoding = "gbk"
 
     def _encode(self, name):
         return "%" + '%'.join([x.upper() for x in str(name.encode("GB2312")).split(r'\x')[1:]])[:-1]
 
     def search(self, name):
         search_url = self.search_url + self._encode(name)
-        results = self.downloader.get(search_url)
+        results = self.downloader.get(search_url, decoding=self.decoding)
         page_urls = self.parser.parse_pages(results)
         data = []
         page_data = self.parser.parse_search_results(results)
         data.extend(page_data)
         if page_urls:
             for page, url in page_urls:
-                results = self.downloader.get(url)
+                results = self.downloader.get(url, decoding=self.decoding)
                 page_data = self.parser.parse_search_results(results)
                 data.extend(page_data)
         res = []
         for item in data:
             name, url = item
-            results = self.downloader.get(url)
+            results = self.downloader.get(url, decoding=self.decoding)
             result_urls = self.parser.parse_page_results(results)
             res.append({
                 "name": name,

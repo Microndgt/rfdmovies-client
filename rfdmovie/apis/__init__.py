@@ -1,3 +1,7 @@
+import random
+import requests
+from selenium import webdriver
+
 USER_AGENTS = ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10.7; rv:11.0) Gecko/20100101 Firefox/11.0',
                'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:22.0) Gecko/20100 101 Firefox/22.0',
                'Mozilla/5.0 (Windows NT 6.1; rv:11.0) Gecko/20100101 Firefox/11.0',
@@ -28,11 +32,7 @@ class BaseAPI:
         raise NotImplementedError
 
 
-class HtmlParser(object):
-
-    def __init__(self):
-        self.baseUrl = "http://www.ygdy8.com"
-
+class HtmlParser:
     def parse_search_results(self, html):
         """
         返回搜索的结果解析
@@ -58,11 +58,7 @@ class HtmlParser(object):
         raise NotImplementedError
 
 
-class HtmlDownloader(object):
-
-    def __init__(self):
-        self.parser = HtmlParser()
-
+class HtmlDownloader:
     def download(self, url, filename):
         """
         下载对应 url 的文件
@@ -72,11 +68,24 @@ class HtmlDownloader(object):
         """
         pass
 
-    def get(self, search_url):
-        raise NotImplementedError
+    def phjs_get(self, search_url):
+        driver = webdriver.PhantomJS()
+        driver.get(search_url)
+        html = driver.page_source
+        driver.close()
+        return html
+
+    def get(self, search_url, decoding="utf-8", ext_headers=None):
+        headers = {'User-Agent': random.choice(USER_AGENTS)}
+        if ext_headers:
+            headers.update(ext_headers)
+        req = requests.get(search_url, headers=headers)
+        if req.status_code // 200 != 1:
+            return
+        return req.content.decode(decoding, 'ignore')
 
 
-class Search(object):
+class Search:
 
     def _encode(self, name):
         raise NotImplementedError

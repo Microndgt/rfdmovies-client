@@ -26,7 +26,7 @@ version_info = """
           |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
           `--'       `----'                                            ---`-'     `----'   
 Recommend && Find && Download Movie Cli
-version 0.1.3
+version 0.1.4
 """
 FIND_HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
 DOWNLOAD_HEADERS = ("name", "download_urls")
@@ -90,18 +90,24 @@ def main():
 
     if args.version:
         print(version_info)
+        return
+
+    movie_name = args.movie.strip()
+    if not movie_name:
+        logger.warn("Please enter a valid movie name, instead of {}".format(movie_name))
+        return
 
     if args.find:
-        logger.info("find MovieName: " + args.movie)
-        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="find", cache=args.cache)
+        logger.info("find MovieName: " + movie_name)
+        movies = rfd_movie(movie_name, args.num, args.pos, args.output, action="find", cache=args.cache)
         show(movies, FIND_HEADERS, color=args.color, action="find")
     elif args.download:
-        logger.info("download MovieName: " + args.movie)
-        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="download", cache=args.cache)
+        logger.info("download MovieName: " + movie_name)
+        movies = rfd_movie(movie_name, args.num, args.pos, args.output, action="download", cache=args.cache)
         show(movies, DOWNLOAD_HEADERS, color=args.color, action="download")
     elif args.recommend:
-        logger.info("recommend MovieName: " + args.movie)
-        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="recommend", cache=args.cache)
+        logger.info("recommend MovieName: " + movie_name)
+        movies = rfd_movie(movie_name, args.num, args.pos, args.output, action="recommend", cache=args.cache)
         show(movies, FIND_HEADERS, action="find")
 
 
