@@ -28,7 +28,7 @@ version_info = """
 Recommend && Find && Download Movie Cli
 version 0.1.4
 """
-FIND_HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
+FIND_HEADERS = ("name", "rate", "rate_num", "countries", "types", "douban_url")
 DOWNLOAD_HEADERS = ("name", "download_urls")
 
 
