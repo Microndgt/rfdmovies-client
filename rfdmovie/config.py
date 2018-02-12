@@ -1,6 +1,4 @@
-import logging
 import os
-import sys
 import yaml
 
 
@@ -66,16 +64,3 @@ def get_config(key_string="", default=None):
                 return fill_vars(default)
     return fill_vars(ret)
 
-
-def early_setup():
-    if sys.argv[0].endswith("inv") or sys.argv[0].endswith("invoke"):
-        return
-    log_level = get_config("logging.level", "info")  # only info/debug is allowed
-    logging.basicConfig(
-        level=logging.INFO if log_level == "info" else logging.DEBUG,
-        format="%(asctime)s - [%(levelname)s] [%(threadName)s] (%(module)s:%(lineno)d) %(message)s"
-    )
-    logging.info("using config file: %s", _config_file)
-
-
-early_setup()

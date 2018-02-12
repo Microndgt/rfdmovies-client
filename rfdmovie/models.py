@@ -1,11 +1,8 @@
 from sqlalchemy import ARRAY
 from sqlalchemy import Column
-from sqlalchemy import JSON
-from sqlalchemy import Table, ForeignKey
-from sqlalchemy.orm import relationship
 from sqlalchemy.types import String, Integer, BigInteger, Float, Date, Text
 
-from rfdmovie.db import BaseModel, db_session
+from rfdmovie.db import BaseModel
 from rfdmovie.utils import generate_timestamp
 
 
