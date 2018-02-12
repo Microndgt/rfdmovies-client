@@ -154,8 +154,11 @@ class DoubanSearch(Search):
         for name, url in page_urls:
             time.sleep(1)
             logger.info("Getting douban movie: {} data".format(name))
-            search_res = self.downloader.get(url, ext_headers=self.headers)
-            movie_data = self.parser.parse_page_results(search_res)
-            movie_data["douban_url"] = url
-            res.append(movie_data)
+            try:
+                search_res = self.downloader.get(url, ext_headers=self.headers)
+                movie_data = self.parser.parse_page_results(search_res)
+                movie_data["douban_url"] = url
+                res.append(movie_data)
+            except:
+                logger.error("failed")
         return res

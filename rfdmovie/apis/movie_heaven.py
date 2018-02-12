@@ -1,3 +1,4 @@
+import time
 from bs4 import BeautifulSoup as bs
 
 from rfdmovie.cache.download import DownloadCache
@@ -71,7 +72,7 @@ class MovieHeavenParser(HtmlParser):
         data = []
         for ele in results:
             item = ele.find('a')
-            url = self.baseUrl + item['href']
+            url = self.base_url + item['href']
             name = item.get_text()
             data.append((name, url))
         return data
@@ -91,23 +92,35 @@ class MovieHeavenSearch(Search):
     def search(self, name):
         search_url = self.search_url + self._encode(name)
         results = self.downloader.get(search_url, decoding=self.decoding)
+        if not results:
+            return []
         page_urls = self.parser.parse_pages(results)
         data = []
         page_data = self.parser.parse_search_results(results)
         data.extend(page_data)
         if page_urls:
             for page, url in page_urls:
-                results = self.downloader.get(url, decoding=self.decoding)
-                page_data = self.parser.parse_search_results(results)
-                data.extend(page_data)
+                time.sleep(1)
+                logger.info("Getting page: {}, url: {} data".format(page, url))
+                try:
+                    results = self.downloader.get(url, decoding=self.decoding)
+                    page_data = self.parser.parse_search_results(results)
+                    data.extend(page_data)
+                except:
+                    logger.error("failed")
         res = []
         for item in data:
             name, url = item
-            results = self.downloader.get(url, decoding=self.decoding)
-            result_urls = self.parser.parse_page_results(results)
-            res.append({
-                "name": name,
-                "page_link": url,
-                "download_urls": result_urls
-            })
+            time.sleep(1)
+            logger.info("Getting item: {}, url: {} data".format(name, url))
+            try:
+                results = self.downloader.get(url, decoding=self.decoding)
+                result_urls = self.parser.parse_page_results(results)
+                res.append({
+                    "name": name,
+                    "page_link": url,
+                    "download_urls": result_urls
+                })
+            except:
+                logger.error("failed")
         return res
