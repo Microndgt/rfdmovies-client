@@ -29,11 +29,11 @@ which movie to watch? Or where to download?
 
 Using this application, you will get the movie and information you are truly interested with. And furthermore, you will get the download links if there exists.
 
-`rfdmovies` will find a movie info like this, `rfdmovies -f 冰与火之歌`
+`rfdmovies` will find a movie info like this, `python -m rfdmovie -f 冰与火之歌`
 
-`rfdmovies` will recommend a movie base on movie name you provide, `rfdmovies -r 冰与火之歌`
+`rfdmovies` will recommend a movie base on movie name you provide, `python -m rfdmovie -r 冰与火之歌`
 
-`rfdmovies` will give you a movie downloading link like this, `rfdmovies -d 冰与火之歌`
+`rfdmovies` will give you a movie downloading link like this, `python -m rfdmovie -d 冰与火之歌`
 
 Installation
 ===
@@ -65,7 +65,7 @@ Usage
 -----
 
 ```
-usage: rfdmovies.py [-h] [-r] [-f] [-d] [-p POS] [-a] [-l] [-c] [-n NUM_MOVIES] [-C] [-v] MOVIE [MOVIE ...]
+usage: python -m rfdmovie [-h] [-r] [-f] [-d] [-p POS] [-a] [-l] [-c] [-n NUM_MOVIES] [-C] [-v] MOVIE [MOVIE ...]
 
 instant coding answers via the command line
 
