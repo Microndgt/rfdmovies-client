@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.engine.url import URL
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
 
 from rfdmovie.config import get_config
 
@@ -13,3 +14,5 @@ dsn_url = URL(drivername='postgresql', host=get_config("rfdmovie.postgresql.host
 engine = create_engine(dsn_url, echo=get_config("rfdmovie.sqlalchemy.echo", False))
 DBSession = sessionmaker(engine)  # pylint: disable=invalid-name
 db_session = DBSession()
+
+BaseModel = declarative_base()  # pylint: disable=invalid-name
