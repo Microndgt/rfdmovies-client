@@ -43,7 +43,7 @@ def main():
     parse.add_argument("-o", "--output", type=str, default="./", help="path to output your movie")
     parse.add_argument("-g", "--page", type=int, default=1, help="the page you want to change")
     parse.add_argument("-c", "--color", action="store_true", help="enable colorized output")
-    parse.add_argument("-c", "--cache", action="store_true", help="using the cache")
+    parse.add_argument("-C", "--cache", action="store_true", help="using the cache")
     parse.add_argument("-m", "--movie", type=str, help="the movie names you want to rfd")
     args = parse.parse_args()
 

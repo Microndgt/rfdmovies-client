@@ -51,6 +51,23 @@ or
 
 `python setup.py install`
 
+load data
+---
+
+首先创建数据库并且更新到最新版本
+
+```shell
+bin/db_init.sh
+bin/db_upgrade.sh
+```
+
+接下来运行下面两个命令其中一个即可将目前所有的电影数据导入数据库:
+
+1. `psql -d rfdmovie -U postgres -p 35332 -f rfdmovie.sql`
+2. `python -m bin.read_raw_movie_data`
+
+目前共有47862条电影数据
+
 Usage
 -----
 
@@ -73,7 +90,7 @@ optional arguments:
   -c, --color           enable colorized output
   -n NUM_MOVIES, --num-movies NUM_MOVIES
                         number of movies to return, default is 5
-  -C, --clear-cache     clear the cache
+  -C, --cache           using the cache
   -v, --version         displays the current version of rfdmovies
 ```
 
