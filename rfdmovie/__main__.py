@@ -8,6 +8,7 @@ from .apis.douban import DoubanAPI
 from .apis.movie_heaven import MovieHeavenAPI
 from .recommend import recommend
 from .logger import logger
+from .utils import colored
 
 desc = "Recommend && Find && Download Movie cli"
 version_info = """
@@ -25,7 +26,7 @@ version_info = """
           |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
           `--'       `----'                                            ---`-'     `----'   
 Recommend && Find && Download Movie Cli
-version 0.1.1
+version 0.1.2
 """
 FIND_HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
 DOWNLOAD_HEADERS = ("name", "download_urls")
@@ -56,24 +57,9 @@ def show(movies, headers, color=True, action="find"):
             movie_list = [[colored("red", str(movie[header])) for header in headers] for movie in movies]
         elif action == "download":
             movie_list = [[colored("red", str(movie[header])) for header in headers] for movie in movies]
-        elif action == "recommend":
-            movie_list = []
         else:
             return
         pretty_print(movie_list, headers)
-
-
-def colored(color, text):
-    '''shell下的颜色处理'''
-    table = {
-        'red': '\033[91m',
-        'green': '\033[92m',
-        # no color
-        'nc': '\033[0m'
-    }
-    cv = table.get(color)
-    nc = table.get('nc')
-    return ''.join([cv, text, nc])
 
 
 def pretty_print(movies, headers):
@@ -113,7 +99,8 @@ def main():
         show(movies, DOWNLOAD_HEADERS, color=args.color, action="download")
     elif args.recommend:
         logger.info("recommend MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, action="recommend", cache=args.cache)
+        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="recommend", cache=args.cache)
+        show(movies, FIND_HEADERS, action="find")
 
 
 if __name__ == "__main__":

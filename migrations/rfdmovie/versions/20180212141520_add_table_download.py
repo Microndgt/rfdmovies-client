@@ -21,6 +21,7 @@ def upgrade():
         'download',
         sa.Column('id', sa.Integer, primary_key=True),
         sa.Column('name', sa.String),
+        sa.Column('page_link', sa.String),
         sa.Column('download_urls', sa.ARRAY(sa.String), server_default=sa.text("array[]::varchar[]")),
         sa.Column('created_utc', sa.Integer, server_default=sa.text('extract(epoch from now())::int')),
         sa.Column('updated_utc', sa.Integer, server_default=sa.text('extract(epoch from now())::int'))

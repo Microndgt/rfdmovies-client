@@ -18,7 +18,7 @@ rfdmovies-client
             
 Recommend && Find && Download Movie Cli
 
-version 0.1.1
+version 0.1.2
 ```
 
 instant recommending or finding or downloading movies via the command line
@@ -127,5 +127,6 @@ Using
 History
 ===
 
+- 0.1.2: 支持 recommend，可以推荐电影啦 `python -m rfdmovie -r -m "黑客帝国" -C -c`
 - 0.1.1: 支持 download 查询 cache 数据库操作
 - 0.1.0: 导入原始数据，支持 find 查询 cache 数据库操作
