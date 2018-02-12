@@ -10,7 +10,8 @@
 
 
 class BaseCache:
-    def read(self, key_word, num=5):
+    @classmethod
+    def read(cls, key_word, num=5):
         """
 
         :param key_word:
@@ -19,7 +20,8 @@ class BaseCache:
         """
         raise NotImplementedError
 
-    def read_by_id(self, movie_id):
+    @classmethod
+    def read_by_id(cls, movie_id):
         """
 
         :param movie_id:
@@ -27,7 +29,8 @@ class BaseCache:
         """
         raise NotImplementedError
 
-    def read_all(self, key_word):
+    @classmethod
+    def read_all(cls, key_word):
         """
 
         :param key_word:
@@ -35,13 +38,16 @@ class BaseCache:
         """
         raise NotImplementedError
 
-    def write(self, movie):
+    @classmethod
+    def write(cls, movie):
         raise NotImplementedError
 
-    def write_all(self, movies):
+    @classmethod
+    def write_all(cls, movies):
         raise NotImplementedError
 
-    def update(self, movie_id, movie):
+    @classmethod
+    def update(cls, movie_id, movie):
         """
         更新某个movie的信息
         :param movie_id:

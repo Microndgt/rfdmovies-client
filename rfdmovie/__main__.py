@@ -1,7 +1,9 @@
 import argparse
+from pprint import pprint
+from prettytable import PrettyTable
 
+from .cache.movie import MovieCache
 from .logger import logger
-
 
 desc = "Recommend && Find && Download Movie cli"
 version_info = """
@@ -21,14 +23,42 @@ version_info = """
 Recommend && Find && Download Movie Cli
 version 0.1
 """
+HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
 
 
-def rfd_movie(movie_name, page_size=5, pos=0, output='./', color=True, action="find", cache=True):
-    pass
+def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=True):
+    if action == "find":
+        if cache:
+            return MovieCache.read(movie_name, num=page_size)
 
 
-def clear_cache():
-    pass
+def show(movies, color=True):
+    if not color:
+        pprint(movies)
+    else:
+        movie_list = [[colored("red", str(movie[header])) for header in HEADERS] for movie in movies]
+        pretty_print(movie_list)
+
+
+def colored(color, text):
+    '''shell下的颜色处理'''
+    table = {
+        'red': '\033[91m',
+        'green': '\033[92m',
+        # no color
+        'nc': '\033[0m'
+    }
+    cv = table.get(color)
+    nc = table.get('nc')
+    return ''.join([cv, text, nc])
+
+
+def pretty_print(movies):
+    pt = PrettyTable()
+    pt._set_field_names(HEADERS)
+    for movie in movies:
+        pt.add_row(movie)
+    print(pt)
 
 
 def main():
@@ -52,13 +82,14 @@ def main():
 
     if args.find:
         logger.info("find MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="find", cache=args.cache)
+        movies = rfd_movie(args.movie, args.num, args.pos, args.output, action="find", cache=args.cache)
+        show(movies, color=args.color)
     elif args.download:
         logger.info("download MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="download", cache=args.cache)
+        rfd_movie(args.movie, args.num, args.pos, args.output, action="download", cache=args.cache)
     elif args.recommend:
         logger.info("recommend MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="recommend", cache=args.cache)
+        rfd_movie(args.movie, args.num, args.pos, args.output, action="recommend", cache=args.cache)
 
 
 if __name__ == "__main__":

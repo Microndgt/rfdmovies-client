@@ -35,3 +35,30 @@ class Movie(BaseModel):
     grade_one = Column(Float, default=0)
     created_utc = Column(Integer, default=generate_timestamp)
     updated_utc = Column(Integer, default=generate_timestamp, onupdate=generate_timestamp)
+
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "release_time": self.release_time,
+            "rate": self.rate,
+            "rate_num": self.rate_num,
+            "desc": self.desc,
+            "countries": self.countries,
+            "image_url": self.image_url,
+            "types": self.types,
+            "director": self.director,
+            "actors": self.actors,
+            "douban_url": self.douban_url,
+            "keywords": self.keywords,
+            "comments": self.comments,
+            "languages": self.languages,
+            "duration": self.duration,
+            "grade_five": self.grade_five,
+            "grade_four": self.grade_four,
+            "grade_three": self.grade_three,
+            "grade_two": self.grade_two,
+            "grade_one": self.grade_one,
+            "created_utc": self.created_utc,
+            "updated_utc": self.updated_utc
+        }
