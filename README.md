@@ -18,7 +18,7 @@ rfdmovies-client
             
 Recommend && Find && Download Movie Cli
 
-version 0.1.2
+version 0.1.3
 ```
 
 instant recommending or finding or downloading movies via the command line
@@ -108,6 +108,15 @@ optional arguments:
     +-----------------------------------------------+------+----------+------------------+---------------------------------------------+----------------------------------+--------------------------------------------+
     ```
 
+- 电影下载链接
+
+    - `python -m rfdmovie -d -m "宝贝" -C -c` 从本地数据库获取
+    - `python -m rfdmovie -d -m "冰与火之歌" -c` 线上搜索
+
+- 推荐
+
+    - `python -m rfdmovie -r -m "黑客帝国" -C -c`
+
 Author
 ------
 
@@ -127,6 +136,7 @@ Using
 History
 ===
 
+- 0.1.3: 支持 电影天堂 搜索电影下载链接啦 `python -m rfdmovie -d -m "冰与火之歌" -c`
 - 0.1.2: 支持 recommend，可以推荐电影啦 `python -m rfdmovie -r -m "黑客帝国" -C -c`
-- 0.1.1: 支持 download 查询 cache 数据库操作
-- 0.1.0: 导入原始数据，支持 find 查询 cache 数据库操作
+- 0.1.1: 支持 download 查询 cache 数据库操作 `python -m rfdmovie -d -m "宝贝" -C -c`
+- 0.1.0: 导入原始数据，支持 find 查询 cache 数据库操作  `python -m rfdmovie -f -m "宝贝" -C -c`

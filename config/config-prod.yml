@@ -11,3 +11,7 @@ rfdmovie:
     check_interval: 60
   sqlalchemy:
     echo: False
+
+movie_heaven:
+  base: "http://s.dydytt.net/"
+  search: "http://s.dydytt.net/plus/search.php?kwtype=0&keyword="

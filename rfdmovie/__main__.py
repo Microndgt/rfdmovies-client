@@ -26,7 +26,7 @@ version_info = """
           |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
           `--'       `----'                                            ---`-'     `----'   
 Recommend && Find && Download Movie Cli
-version 0.1.2
+version 0.1.3
 """
 FIND_HEADERS = ("name", "rate", "rate_num", "countries", "director", "types", "douban_url")
 DOWNLOAD_HEADERS = ("name", "download_urls")
@@ -39,9 +39,11 @@ def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=
         else:
             return DoubanAPI.read(movie_name, num=page_size)
     elif action == "download":
+        # TODO 下载文件功能
         if cache:
             return DownloadCache.read(movie_name, num=page_size)
         else:
+            # TODO 协程读取多个API的电影下载数据
             return MovieHeavenAPI.read(movie_name, num=page_size)
     elif action == "recommend":
         return recommend(movie_name)
