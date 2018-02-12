@@ -1,0 +1,13 @@
+logging:
+  level: "debug"
+
+rfdmovie:
+  postgresql:
+    host: "127.0.0.1"
+    port: 35332
+    user: "postgres"
+    password: ""
+    db_name: "rfdmovie"
+    check_interval: 60
+  sqlalchemy:
+    echo: True

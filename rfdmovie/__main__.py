@@ -23,7 +23,7 @@ version 0.1
 """
 
 
-def rfd_movie(movie_name, page_size=5, pos=0, output='./', color=True, action="find"):
+def rfd_movie(movie_name, page_size=5, pos=0, output='./', color=True, action="find", cache=True):
     pass
 
 
@@ -43,25 +43,22 @@ def main():
     parse.add_argument("-o", "--output", type=str, default="./", help="path to output your movie")
     parse.add_argument("-g", "--page", type=int, default=1, help="the page you want to change")
     parse.add_argument("-c", "--color", action="store_true", help="enable colorized output")
-    parse.add_argument("-C", "--clear", action="store_true", help="clear the cache")
+    parse.add_argument("-c", "--cache", action="store_true", help="using the cache")
     parse.add_argument("-m", "--movie", type=str, help="the movie names you want to rfd")
     args = parse.parse_args()
-
-    if args.clear:
-        clear_cache()
 
     if args.version:
         print(version_info)
 
     if args.find:
         logger.info("find MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="find")
+        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="find", cache=args.cache)
     elif args.download:
         logger.info("download MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="download")
+        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="download", cache=args.cache)
     elif args.recommend:
         logger.info("recommend MovieName: " + args.movie)
-        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="recommend")
+        rfd_movie(args.movie, args.num, args.pos, args.output, args.color, action="recommend", cache=args.cache)
 
 
 if __name__ == "__main__":
