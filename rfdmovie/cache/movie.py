@@ -31,6 +31,8 @@ class MovieCache(BaseCache):
 
     @classmethod
     def update(cls, exist_movie, movie):
+        if movie['name'] and exist_movie['name'] != movie['name']:
+            exist_movie['name'] = movie['name']
         if movie['rate']:
             exist_movie['rate'] = movie['rate']
         if movie['rate_num']:
