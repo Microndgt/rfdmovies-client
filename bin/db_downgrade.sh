@@ -10,11 +10,10 @@ get_config() {
     echo ${RESULT}
 }
 
-
 USER=$(get_config "rfdmovie.postgresql.user")
 DB_NAME=$(get_config "rfdmovie.postgresql.db_name")
 PORT=$(get_config "rfdmovie.postgresql.port")
 DB_HOST=$(get_config "rfdmovie.postgresql.host")
 
-echo "alembic -c misc/db-migrations/alembic.ini -n rfdmovie -x dburl=postgresql+psycopg2://${USER}@${DB_HOST}:${PORT}/${DB_NAME} upgrade head"
+echo "alembic -c migrations/alembic.ini -n rfdmovie -x dburl=postgresql+psycopg2://${USER}@${DB_HOST}:${PORT}/${DB_NAME} downgrade -1"
 alembic -c migrations/alembic.ini -n rfdmovie -x dburl=postgresql+psycopg2://${USER}@${DB_HOST}:${PORT}/${DB_NAME} downgrade -1

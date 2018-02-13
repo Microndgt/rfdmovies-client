@@ -6,6 +6,7 @@ import re
 from datetime import datetime
 from rfdmovie.config import project_root
 from rfdmovie.cache.movie import MovieCache
+from rfdmovie.logger import logger
 
 MOVIE_DATA_FILE = os.path.abspath(os.path.join(project_root, "./data/doubanmovie.txt"))
 
@@ -23,7 +24,7 @@ def parse_line(line):
     elements = line.split("\t")
     if len(elements) != 21:
         return {}
-    print("movie: {}".format(elements[1]))
+    logger.info("movie: {}".format(elements[1]))
     res = {
         "douban_url": elements[0],
         "name": elements[1],
@@ -43,7 +44,7 @@ def parse_line(line):
         try:
             release_year = re.search(r"(\d{4})", elements[2]).group(1)
         except:
-            print(elements[2])
+            logger.error(elements[2])
             res["release_time"] = "1900-01-01"
         else:
             release_time = datetime.strptime(release_year, "%Y").strftime("%Y-%m-%d")
@@ -54,7 +55,7 @@ def parse_line(line):
     try:
         duration = int(re.search(r"(\d+)", elements[13]).group(1)) if elements[13] else 0
     except:
-        print(elements[13])
+        logger.error(elements[13])
         duration = 0
     res["duration"] = duration
 

@@ -33,13 +33,11 @@ if [ -d /usr/local/pgsql/bin ]; then
     export PATH=$PATH:/usr/local/pgsql/bin
 fi
 
-#mkdir -p ${DATA_DIR}
 
 initdb -D ${DATA_DIR}
 pg_ctl -D ${DATA_DIR} -l ${DATA_DIR}/postgresql.log start -o "-p ${PORT}"
 echo "wait 2 seconds..."
 sleep 2
-# TODO check the process
 
 createuser -s ${USER} -h ${DB_HOST} -p ${PORT}
 

@@ -26,7 +26,7 @@ version_info = """
           |  |,'    \   \  /   '---'                           '---"  |  ,   /   \   \  /  
           `--'       `----'                                            ---`-'     `----'   
 Recommend && Find && Download Movie Cli
-version 0.1.4
+version 0.1.5
 """
 FIND_HEADERS = ("name", "rate", "rate_num", "countries", "types", "douban_url")
 DOWNLOAD_HEADERS = ("name", "download_urls")
@@ -48,7 +48,7 @@ def rfd_movie(movie_name, page_size=5, pos=0, output='./', action="find", cache=
     elif action == "recommend":
         return recommend(movie_name)
     else:
-        print("Unsupported action: {}".format(action))
+        logger.error("Unsupported action: {}".format(action))
 
 
 def show(movies, headers, color=True, action="find"):

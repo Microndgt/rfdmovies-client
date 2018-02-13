@@ -57,6 +57,7 @@ class DoubanParser(HtmlParser):
         :param html:
         :return:
         """
+        # FIXME 未能正确解析 分页
         soup = bs(html, "html5lib")
         pages = int(soup.find('span', class_="thispage")['data-total-page'])
         return pages
@@ -84,7 +85,7 @@ class DoubanParser(HtmlParser):
             try:
                 release_year = re.search(r"(\d{4})", year).group(1)
             except:
-                print(year)
+                logger.error(year)
                 movie_data["release_time"] = "1900-01-01"
             else:
                 release_time = datetime.strptime(release_year, "%Y").strftime("%Y-%m-%d")
@@ -141,10 +142,11 @@ class DoubanSearch(Search):
         }
 
     def _encode(self, name):
-        raise NotImplementedError
+        name_code = parse.quote(name)
+        return name_code
 
     def search(self, name):
-        name_code = parse.quote(name)
+        name_code = self._encode(name)
         search_url = self.search_url + name_code
         search_res = self.downloader.phjs_get(search_url)
         page_urls = self.parser.parse_search_results(search_res)
@@ -156,9 +158,12 @@ class DoubanSearch(Search):
             logger.info("Getting douban movie: {} data".format(name))
             try:
                 search_res = self.downloader.get(url, ext_headers=self.headers)
+                if not search_res:
+                    logger.error("Getting url page failed")
+                    continue
                 movie_data = self.parser.parse_page_results(search_res)
                 movie_data["douban_url"] = url
                 res.append(movie_data)
             except:
-                logger.error("failed")
+                logger.error("Parse page content failed")
         return res

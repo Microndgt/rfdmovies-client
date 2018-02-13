@@ -12,7 +12,6 @@ get_config() {
     echo ${RESULT}
 }
 
-
 USER=$(get_config "rfdmovie.postgresql.user")
 DB_NAME=$(get_config "rfdmovie.postgresql.db_name")
 PORT=$(get_config "rfdmovie.postgresql.port")

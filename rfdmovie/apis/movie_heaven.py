@@ -93,6 +93,7 @@ class MovieHeavenSearch(Search):
         search_url = self.search_url + self._encode(name)
         results = self.downloader.get(search_url, decoding=self.decoding)
         if not results:
+            logger.error("Getting url: {} page failed".format(search_url))
             return []
         page_urls = self.parser.parse_pages(results)
         data = []
@@ -104,10 +105,13 @@ class MovieHeavenSearch(Search):
                 logger.info("Getting page: {}, url: {} data".format(page, url))
                 try:
                     results = self.downloader.get(url, decoding=self.decoding)
+                    if not results:
+                        logger.error("Getting url page failed")
+                        continue
                     page_data = self.parser.parse_search_results(results)
                     data.extend(page_data)
                 except:
-                    logger.error("failed")
+                    logger.error("Parse page content failed")
         res = []
         for item in data:
             name, url = item
@@ -115,6 +119,9 @@ class MovieHeavenSearch(Search):
             logger.info("Getting item: {}, url: {} data".format(name, url))
             try:
                 results = self.downloader.get(url, decoding=self.decoding)
+                if not results:
+                    logger.error("Getting url page failed")
+                    continue
                 result_urls = self.parser.parse_page_results(results)
                 res.append({
                     "name": name,
@@ -122,5 +129,5 @@ class MovieHeavenSearch(Search):
                     "download_urls": result_urls
                 })
             except:
-                logger.error("failed")
+                logger.error("Parse page content failed")
         return res
