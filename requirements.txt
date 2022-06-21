@@ -13,7 +13,7 @@ macropy3==1.0.4.dev2
 Mako==1.0.7
 MarkupSafe==1.0
 mccabe==0.6.1
-numpy==1.14.0
+numpy==1.22.0
 prettytable==0.7.2
 psycopg2==2.7.3.2
 pyaml==17.12.1
